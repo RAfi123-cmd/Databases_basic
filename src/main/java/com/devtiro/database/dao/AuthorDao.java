@@ -1,5 +1,7 @@
 package com.devtiro.database.dao;
 
-public interface AuthorDao {
+import com.devtiro.database.domain.Author;
 
+public interface AuthorDao {
+    void create(Author author);
 }
