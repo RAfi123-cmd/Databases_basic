@@ -28,16 +28,6 @@ public class BookDaoImpl implements BookDao {
                 book.getIsbn(), book.getTitle(), book.getAuthorId());
     }
 
-    @Override
-    public Optional<Book> findone(String isbn) {
-        // TODO Auto-generated method stub
-        List<Book> results = jdbcTemplate.query(
-                "SELECT isbn, title, author_id from books WHERE isbn = ? LIMIT 1",
-                new BookRowMapper(),
-                isbn);
-        return results.stream().findFirst();
-    }
-
     public static class BookRowMapper implements RowMapper<Book> {
 
         @Override
@@ -57,6 +47,22 @@ public class BookDaoImpl implements BookDao {
         return jdbcTemplate.query(
                 "SELECT isbn, title, author_id from books",
                 new BookRowMapper());
+    }
+
+    @Override
+    public void update(String isbn, Book book) {
+        // TODO Auto-generated method stub
+        jdbcTemplate.update("UPDATE books SET isbn = ?, title = ?, author_id = ? WHERE isbn = ?",
+                book.getIsbn(), book.getTitle(), book.getAuthorId(), isbn);
+    }
+
+    @Override
+    public Optional<Book> findOne(String isbn) {
+        List<Book> results = jdbcTemplate.query(
+                "SELECT isbn, title, author_id from books WHERE isbn = ? LIMIT 1",
+                new BookRowMapper(),
+                isbn);
+        return results.stream().findFirst();
     }
 
 }
