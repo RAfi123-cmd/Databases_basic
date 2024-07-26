@@ -65,4 +65,11 @@ public class BookDaoImpl implements BookDao {
         return results.stream().findFirst();
     }
 
+    @Override
+    public void delete(String isbn) {
+        jdbcTemplate.update(
+                "DELETE FROM books where isbn = ?",
+                isbn);
+    }
+
 }

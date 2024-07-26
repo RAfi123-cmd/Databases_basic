@@ -63,6 +63,14 @@ public class BookDaoImplTests {
         verify(jdbcTemplate).update("UPDATE books SET isbn = ?, title = ?, author_id = ? WHERE isbn = ?",
                 "978-1-2345-6789-0", "The Shadow in the Attic", 1L, "978-1-2345-6789-0");
     }
+
+    @Test
+    public void testThatDeleteGeneratesCorrectSql() {
+        underTest.delete("978-1-2345-6789-0");
+        verify(jdbcTemplate).update(
+                "DELETE FROM books where isbn = ?",
+                "978-1-2345-6789-0");
+    }
     // @Test
     // public void testThatFindOneBookGeneratesCorrectSql() {
     // underTest.find("978-1-2345-6789-0");
