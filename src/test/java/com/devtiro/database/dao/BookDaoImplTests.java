@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.devtiro.database.TestDataUtil;
 import com.devtiro.database.dao.impl.BookDaoImpl;
 import com.devtiro.database.domain.Book;
 
@@ -25,11 +26,7 @@ public class BookDaoImplTests {
 
     @Test
     public void testThatCreateBookGeneratesCorrectSql() {
-        Book book = Book.builder()
-                .isbn("978-1-2345-6789-0")
-                .title("The Shadow in the Attic")
-                .authorId(1L)
-                .build();
+        Book book = TestDataUtil.createTestBook();
 
         underTest.create(book);
 
